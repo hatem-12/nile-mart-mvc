@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories | NileMart</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #263238;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .header {
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            color: #172b4d;
+        }
+
+        .subtitle {
+            color: #718096;
+            margin: 0;
+        }
+
+        .count {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 14px;
+            background: #e8eefc;
+            color: #3155a4;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .table-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 15px 12px;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        th {
+            color: #718096;
+            font-size: 13px;
+            text-transform: uppercase;
+            background: #fafbfc;
+        }
+
+        tbody tr:hover {
+            background: #f8faff;
+        }
+
+        .category-name {
+            font-weight: bold;
+            color: #263b5e;
+        }
+
+        .subcategory {
+            display: inline-block;
+            margin-left: 25px;
+            padding-left: 12px;
+            color: #52647d;
+            border-left: 2px solid #dce3ed;
+        }
+
+        .slug {
+            color: #718096;
+            font-family: monospace;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .active {
+            background: #e5f7ed;
+            color: #21834b;
+        }
+
+        .inactive {
+            background: #fdeaea;
+            color: #c0392b;
+        }
+
+        .empty {
+            text-align: center;
+            color: #718096;
+            padding: 30px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            .table-card {
+                padding: 10px;
+            }
+
+            th, td {
+                padding: 12px 8px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Categories</h1>
+        <p class="subtitle">Manage your store categories</p>
+
+        <span class="count"
+              th:text="${categories.size()} + ' Categories'">
+        </span>
+    </div>
+
+    <div class="table-card">
+
+        <table>
+
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Parent</th>
+                <th>Order</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="category : ${categories}">
+
+                <td>
+                    <span th:if="${category.parentSlug == null or category.parentSlug.isEmpty()}"
+                          class="category-name"
+                          th:text="${category.name}">
+                    </span>
+
+                    <span th:unless="${category.parentSlug == null or category.parentSlug.isEmpty()}"
+                          class="subcategory"
+                          th:text="${category.name}">
+                    </span>
+                </td>
+
+                <td class="slug"
+                    th:text="${category.slug}">
+                </td>
+
+                <td>
+                    <span th:if="${category.parentSlug == null or category.parentSlug.isEmpty()}">
+                        ---
+                    </span>
+
+                    <span th:unless="${category.parentSlug == null or category.parentSlug.isEmpty()}"
+                          th:text="${categoryNames[category.parentSlug]}">
+                    </span>
+                </td>
+
+                <td th:text="${category.displayOrder}"></td>
+
+                <td>
+                    <span th:if="${category.active}"
+                          class="status active">
+                        Active
+                    </span>
+
+                    <span th:unless="${category.active}"
+                          class="status inactive">
+                        Inactive
+                    </span>
+                </td>
+
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(categories)}">
+                <td colspan="5" class="empty">
+                    No categories found.
+                </td>
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

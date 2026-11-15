@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Brand</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f6f8;
+            padding: 30px;
+            color: #333;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        input[type="text"] {
+            display: block;
+            width: 100%;
+            padding: 9px;
+            margin-top: 6px;
+            margin-bottom: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #8da5c2;
+        }
+
+        input[type="checkbox"] {
+            margin-top: 8px;
+        }
+
+        span {
+            display: block;
+            color: #c45b5b;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        button {
+            background: #647fa3;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            color: #647fa3;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <h2>Add New Brand</h2>
+
+    <form th:action="@{/brands}" th:object="${brands}" method="post">
+
+        <label>Name
+            <input type="text" th:field="*{name}" placeholder="Brand name">
+        </label>
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
+        <label>Slug
+            <input type="text" th:field="*{slug}" placeholder="brand-slug">
+        </label>
+        <span th:if="${#fields.hasErrors('slug')}" th:errors="*{slug}"></span>
+
+        <label>
+            Active
+            <input type="checkbox" th:field="*{active}">
+        </label>
+
+        <br><br>
+
+        <button type="submit">Save Brand</button>
+
+    </form>
+
+    <a th:href="@{/brands}">Back to brands</a>
+
+</div>
+
+</body>
+</html>

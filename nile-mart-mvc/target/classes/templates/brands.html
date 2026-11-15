@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brands</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f6f8;
+            color: #333;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 25px;
+        }
+
+        p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .btn {
+            background: #647fa3;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 13px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f8f9fb;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .status {
+            padding: 5px 9px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .active {
+            background: #e7f4ec;
+            color: #398052;
+        }
+
+        .inactive {
+            background: #fceaea;
+            color: #b65353;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+
+    <h3>All Brands</h3>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Slug</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+
+        <tbody >
+        <tr th:each=" p:${brands}" >
+            <td th:text="${p.name}"></td>
+            <td th:text="${p.slug}"></td>
+            <td th:text="${p.active}?'Active':'Inactive'"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
